@@ -1,0 +1,1 @@
+openssl genrsa -out privkey.pem 2048
