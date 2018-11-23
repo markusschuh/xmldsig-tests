@@ -97,7 +97,7 @@ public class GenEnveloped {
             (fac.newCanonicalizationMethod
              (CanonicalizationMethod.INCLUSIVE_WITH_COMMENTS,
               (C14NMethodParameterSpec) null),
-             fac.newSignatureMethod("http://www.w3.org/2000/09/xmldsig#dsa-sha256", null),
+             fac.newSignatureMethod("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256", null),
              Collections.singletonList(ref));
 
         // Create a RSA KeyPair
