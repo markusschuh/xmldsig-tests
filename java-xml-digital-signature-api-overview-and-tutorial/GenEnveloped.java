@@ -100,7 +100,7 @@ public class GenEnveloped {
         // Create the SignedInfo
         SignedInfo si = fac.newSignedInfo
             (fac.newCanonicalizationMethod
-             (CanonicalizationMethod.INCLUSIVE_WITH_COMMENTS,
+             (CanonicalizationMethod.EXCLUSIVE,
               (C14NMethodParameterSpec) null),
              fac.newSignatureMethod("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256", null),
              Collections.singletonList(ref));
