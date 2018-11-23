@@ -108,10 +108,7 @@ public class GenEnveloped {
              fac.newSignatureMethod("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256", null),
              Collections.singletonList(ref));
 
-        // Create a RSA KeyPair
-        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
-        kpg.initialize(2048);
-        KeyPair kp = kpg.generateKeyPair();
+        // Read a RSA KeyPair from KeyStore
 
         String keystore      = "envelope.keystore";
         String storepassword = "my-password";
