@@ -1,0 +1,1 @@
+openssl rsa -in pubkey.pem -pubin -noout -text

@@ -1,1 +1,1 @@
-openssl rsa -in privkey -pubout >pubkey.pem
+openssl rsa -in privkey.pem -pubout >pubkey.pem

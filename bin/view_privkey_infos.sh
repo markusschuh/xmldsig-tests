@@ -1,0 +1,1 @@
+openssl rsa -in privkey.pem -noout -text
