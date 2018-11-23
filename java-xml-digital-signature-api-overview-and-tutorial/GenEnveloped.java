@@ -15,6 +15,11 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+
 import java.util.*;
 
 /**
@@ -122,6 +127,12 @@ public class GenEnveloped {
         dbf.setNamespaceAware(true);
         Document doc =
             dbf.newDocumentBuilder().parse(new FileInputStream(args[0]));
+
+        NodeList nodes = doc.getElementsByTagName("Signature");
+        for (int i = 0; i < nodes.getLength(); i++) {
+          Element signaturinfonode = (Element)nodes.item(i);
+          signaturinfonode.getParentNode().removeChild(signaturinfonode);
+        }
 
         // Create a DOMSignContext and specify the RSA PrivateKey and
         // location of the resulting XMLSignature's parent element
