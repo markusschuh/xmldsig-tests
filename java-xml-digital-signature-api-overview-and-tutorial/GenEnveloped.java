@@ -89,10 +89,8 @@ public class GenEnveloped {
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
         final List<Transform> transforms = new ArrayList<Transform>(2);
-        Transform transformEnvelope = fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null);
-        transforms.add(transformEnvelope);
-        Transform transformC14n = fac.newTransform(CanonicalizationMethod.EXCLUSIVE, (TransformParameterSpec) null);
-        transforms.add(transformC14n);
+        transforms.add(fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));
+        transforms.add(fac.newTransform(CanonicalizationMethod.EXCLUSIVE, (TransformParameterSpec) null));
 
         // Create a Reference to the enveloped document (in this case we are
         // signing the whole document, so a URI of "" signifies that) and
