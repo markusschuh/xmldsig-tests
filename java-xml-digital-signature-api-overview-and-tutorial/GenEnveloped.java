@@ -113,7 +113,19 @@ public class GenEnveloped {
         kpg.initialize(2048);
         KeyPair kp = kpg.generateKeyPair();
 
-        // Create a KeyValue containing the RSA PublicKey that was generated
+        String keystore      = "envelope.keystore";
+        String storepassword = "my-password";
+        String alias         = "envelope";
+        String keypassword   = "my-password";
+
+        // Load the KeyStore and get the signing key and certificate.
+        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+        ks.load(new FileInputStream(keystore), storepassword.toCharArray());
+        PublicKey publicKey = ks.getCertificate(alias).getPublicKey();
+        Key key = ks.getKey(alias, keypassword.toCharArray());
+        KeyPair kp = new KeyPair(publicKey, (PrivateKey) key);
+
+        // Create a KeyValue containing the RSA PublicKey
         KeyInfoFactory kif = fac.getKeyInfoFactory();
         KeyValue kv = kif.newKeyValue(kp.getPublic());
 
