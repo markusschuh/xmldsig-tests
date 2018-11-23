@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
  * <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
  *   <SignedInfo>
  *     <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
- *     <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha256"/>
+ *     <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
  *     <Reference URI="">
  *       <Transforms>
  *         <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
@@ -100,12 +100,12 @@ public class GenEnveloped {
              fac.newSignatureMethod("http://www.w3.org/2000/09/xmldsig#dsa-sha256", null),
              Collections.singletonList(ref));
 
-        // Create a DSA KeyPair
-        KeyPairGenerator kpg = KeyPairGenerator.getInstance("DSA");
+        // Create a RSA KeyPair
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
         kpg.initialize(2048);
         KeyPair kp = kpg.generateKeyPair();
 
-        // Create a KeyValue containing the DSA PublicKey that was generated
+        // Create a KeyValue containing the RSA PublicKey that was generated
         KeyInfoFactory kif = fac.getKeyInfoFactory();
         KeyValue kv = kif.newKeyValue(kp.getPublic());
 
@@ -118,7 +118,7 @@ public class GenEnveloped {
         Document doc =
             dbf.newDocumentBuilder().parse(new FileInputStream(args[0]));
 
-        // Create a DOMSignContext and specify the DSA PrivateKey and
+        // Create a DOMSignContext and specify the RSA PrivateKey and
         // location of the resulting XMLSignature's parent element
         DOMSignContext dsc = new DOMSignContext
             (kp.getPrivate(), doc.getDocumentElement());
