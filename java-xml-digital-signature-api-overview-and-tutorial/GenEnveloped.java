@@ -31,11 +31,12 @@ import java.util.*;
  *<Envelope xmlns="urn:envelope">
  * <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
  *   <SignedInfo>
- *     <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+ *     <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
  *     <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
  *     <Reference URI="">
  *       <Transforms>
  *         <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+ *          <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
  *       </Transforms>
  *       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
  *       <DigestValue>K8M/lPbKnuMDsO0Uzuj75lQtzQI=<DigestValue>
@@ -46,26 +47,15 @@ import java.util.*;
  *   </SignatureValue>
  *   <KeyInfo>
  *     <KeyValue>
- *       <DSAKeyValue>
- *         <P>
- *           rFto8uPQM6y34FLPmDh40BLJ1rVrC8VeRquuhPZ6jYNFkQuwxnu/wCvIAMhukPBL
- *           FET8bJf/b2ef+oqxZajEb+88zlZoyG8g/wMfDBHTxz+CnowLahnCCTYBp5kt7G8q
- *           UobJuvjylwj1st7V9Lsu03iXMXtbiriUjFa5gURasN8=
- *         </P>
- *         <Q>
- *           kEjAFpCe4lcUOdwphpzf+tBaUds=
- *         </Q>
- *         <G>
- *           oe14R2OtyKx+s+60O5BRNMOYpIg2TU/f15N3bsDErKOWtKXeNK9FS7dWStreDxo2
- *           SSgOonqAd4FuJ/4uva7GgNL4ULIqY7E+mW5iwJ7n/WTELh98mEocsLXkNh24HcH4
- *           BZfSCTruuzmCyjdV1KSqX/Eux04HfCWYmdxN3SQ/qqw=
- *         </G>
- *         <Y>
- *           pA5NnZvcd574WRXuOA7ZfC/7Lqt4cB0MRLWtHubtJoVOao9ib5ry4rTk0r6ddnOv
- *           AIGKktutzK3ymvKleS3DOrwZQgJ+/BDWDW8kO9R66o6rdjiSobBi/0c2V1+dkqOg
- *           jFmKz395mvCOZGhC7fqAVhHat2EjGPMfgSZyABa7+1k=
- *         </Y>
- *       </DSAKeyValue>
+ *       <RSAKeyValue>
+ *       
+ * <Modulus>ygPSo3j0GR6U4obxWT82fBsIgZevUDlsS37oDvaxRY3dn5lqvgCQw8IUP2BcUdV9j6bglymBfkR9
+72FjgMHdi+mNxQaP2emOxNRb+HiiToLCPbjZWiRrgVOZedlDrAXIJeBFaPRA0ZaeReNJk3h2qDEZ
+3JBcNa2hDVr6i3VJc8NPVCM9yn6tVPxRISSZRYORIdul7uJB20aAeQG8pWwFtpTv2dxjxgKc7XpY
+QCh+fb/or8ovMCOU6QHJ0WeeYNNvN7oPOpzr5N7aEK6/oiKd1cqTs4onArd0eEvG+Z0LfeUhE+BO
+N+lhE7x6wrvM49/lcMWoopMJcqq07MyGYNbC6Q==</Modulus>
+ *         <Exponent>AQAB</Exponent>
+ *       </RSAKeyValue>
  *     </KeyValue>
  *   </KeyInfo>
  * </Signature>
