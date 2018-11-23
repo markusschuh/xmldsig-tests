@@ -15,6 +15,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
+import java.util.*;
 
 /**
  * This is a simple example of generating an Enveloped XML
@@ -82,14 +83,18 @@ public class GenEnveloped {
         // enveloped signature
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
+        final List<Transform> transforms = new ArrayList<Transform>(2);
+        Transform transformEnvelope = fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null);
+        transforms.add(transformEnvelope);
+        Transform transformC14n = fac.newTransform(CanonicalizationMethod.EXCLUSIVE, (TransformParameterSpec) null);
+        transforms.add(transformC14n);
+
         // Create a Reference to the enveloped document (in this case we are
         // signing the whole document, so a URI of "" signifies that) and
         // also specify the SHA256 digest algorithm and the ENVELOPED Transform.
         Reference ref = fac.newReference
             ("", fac.newDigestMethod(DigestMethod.SHA256, null),
-             Collections.singletonList
-              (fac.newTransform
-                (Transform.ENVELOPED, (TransformParameterSpec) null)),
+             transforms,
              null, null);
 
         // Create the SignedInfo
