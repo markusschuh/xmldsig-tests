@@ -1,12 +1,14 @@
-import java.io.*;
+  import java.io.*;
 import java.math.BigInteger;
 import java.security.*;
 import java.security.spec.*;
 import java.security.cert.*;
 import java.security.interfaces.*;
+import java.util.Base64;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.w3c.dom.*;
@@ -223,21 +225,16 @@ public class XMLSec2PEM {
     } 	
   }
 
-  private static final String b64encode(byte[] data) {
-    sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder() ;
-    String b64str = enc.encodeBuffer(data).trim();
+  private static final String b64encode(final byte[] data) {
+    Base64.Encoder mimeEncoder = java.util.Base64.getMimeEncoder();
+    String b64str = mimeEncoder.encodeToString(data);
     return b64str;
   }
 
   private static final byte[] b64decode(String data) {
-    try {
-      sun.misc.BASE64Decoder dec = new sun.misc.BASE64Decoder() ;
-      byte[] bytes = dec.decodeBuffer(data.trim());
-      return bytes;
-    } catch (IOException e) {
-      System.out.println("Exception caught when base64 decoding!" + e.toString());
-    }
-    return null;
+    Base64.Decoder mimeDecoder = java.util.Base64.getMimeDecoder();
+    byte[] bytes = mimeDecoder.decode(data);
+    return bytes;
   }
 
 
