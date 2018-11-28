@@ -90,7 +90,13 @@ public class CreateSignatureJSR105 {
         // Create a DOM XMLSignatureFactory that will be used to generate the enveloped signature
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
 
+        // Create the CanonicalizationMethod for the SignedInfo
+        CanonicalizationMethod canonMethod = fac.newCanonicalizationMethod
+             (CanonicalizationMethod.EXCLUSIVE,
+              (C14NMethodParameterSpec) null);
+
         // Use RSA-256 as algorithm for digital signature
+        // Java8 still lacks a predefined RSA_SHA256 property, so use it explicite.
         SignatureMethod signatureMethod = fac.newSignatureMethod("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256", null);
 
         // Create the list of transformations for the Document/Reference
@@ -98,20 +104,18 @@ public class CreateSignatureJSR105 {
         transforms.add(fac.newTransform(Transform.ENVELOPED, (TransformParameterSpec) null));
         transforms.add(fac.newTransform(CanonicalizationMethod.EXCLUSIVE, (TransformParameterSpec) null));
 
-        Reference ref = fac.newReference
-            ("", fac.newDigestMethod(DigestMethod.SHA256, null),
-             transforms,
-             null, null);
+        // Create the DigestMethod for the Document/Reference
+        DigestMethod digestMethod = fac.newDigestMethod(DigestMethod.SHA256, null);
 
+        // Create a XMLSignature that will be used to generate the enveloped signature
+        // Create the Reference
+        Reference ref = fac.newReference("", digestMethod, transforms, null, null);
         // Create the SignedInfo
-        SignedInfo si = fac.newSignedInfo
-            (fac.newCanonicalizationMethod
-             (CanonicalizationMethod.EXCLUSIVE,
-              (C14NMethodParameterSpec) null),
-             signatureMethod,
-             Collections.singletonList(ref));
+        SignedInfo si = fac.newSignedInfo(canonMethod, signatureMethod, Collections.singletonList(ref));
 
         // Remove any old Signature node
+        // TODO: Only remove the Signature child from the to be signed element
+        // TODO: Check if Signature already exists and use replaceChild in this case
         NodeList nodes = doc.getElementsByTagName("Signature");
         for (int i = 0; i < nodes.getLength(); i++) {
           Node signaturinfonode = nodes.item(i);
@@ -140,6 +144,7 @@ public class CreateSignatureJSR105 {
            os = System.out;
         }
 
+        // Attention - do not apply any transformation that changes indentation!
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer trans = tf.newTransformer();
         trans.transform(new DOMSource(doc), new StreamResult(os));

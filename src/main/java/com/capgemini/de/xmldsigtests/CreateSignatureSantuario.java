@@ -41,6 +41,7 @@ import org.apache.xml.security.utils.XMLUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class CreateSignatureSantuario {
@@ -87,32 +88,38 @@ public class CreateSignatureSantuario {
 
         Element root = doc.getDocumentElement();
 
-        // Use RSA-256 as algorithm for digital signature
-        SignatureAlgorithm signatureAlgorithm =
-          new SignatureAlgorithm(doc, XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA256);
-
-        // Create the list of transformations for the Document/Reference
-        Transforms transforms = new Transforms(doc);
-        transforms.addTransform(Transforms.TRANSFORM_ENVELOPED_SIGNATURE);
-        transforms.addTransform(Transforms.TRANSFORM_C14N_EXCL_OMIT_COMMENTS);
-
+        // Create the CanonicalizationMethod for the SignedInfo
         Element canonElem =
             XMLUtils.createElementInSignatureSpace(doc, Constants._TAG_CANONICALIZATIONMETHOD);
         canonElem.setAttributeNS(
             null, Constants._ATT_ALGORITHM, Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS
         );
 
+        // Use RSA-256 as algorithm for digital signature
+        SignatureAlgorithm signatureAlgorithm =
+          new SignatureAlgorithm(doc, XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA256);
+        Element signElem = signatureAlgorithm.getElement();
+
+        // Create the list of transformations for the Document/Reference
+        Transforms transforms = new Transforms(doc);
+        transforms.addTransform(Transforms.TRANSFORM_ENVELOPED_SIGNATURE);
+        transforms.addTransform(Transforms.TRANSFORM_C14N_EXCL_OMIT_COMMENTS);
+
+        // Create the DigestMethod for the Document/Reference
+        String digestAlgorithm = MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA256;
+
         // Create a XMLSignature that will be used to generate the enveloped signature
         XMLSignature signature =
-          new XMLSignature(doc, null, signatureAlgorithm.getElement(), canonElem);
-
+          new XMLSignature(doc, null, signElem, canonElem);
         //Add the above Document/Reference
-        signature.addDocument("", transforms, MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA256);
+        signature.addDocument("", transforms, digestAlgorithm);
 
         // Remove any old Signature node
+        // TODO: Only remove the Signature child from the to be signed element
+        // TODO: Check if Signature already exists and use replaceChild in this case
         NodeList nodes = doc.getElementsByTagName("Signature");
         for (int i = 0; i < nodes.getLength(); i++) {
-          Element signaturinfonode = (Element)nodes.item(i);
+          Node signaturinfonode = nodes.item(i);
           signaturinfonode.getParentNode().removeChild(signaturinfonode);
         }
 
