@@ -15,12 +15,9 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
+import java.util.Base64;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 import sun.security.pkcs.PKCS8Key;
-import sun.security.pkcs10.PKCS10;
-import sun.security.x509.X500Name;
 
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -282,8 +279,8 @@ fos.close();
           privKeyPEM = privKeyPEM.replace("-----END PRIVATE KEY-----", "");
           //System.out.println("Private key\n"+privKeyPEM);
 
-          BASE64Decoder b64=new BASE64Decoder();
-          byte[] decoded = b64.decodeBuffer(privKeyPEM);
+          Base64.Decoder mimeDecoder = java.util.Base64.getMimeDecoder();
+          byte[] decoded = mimeDecoder.decode(privKeyPEM);
 
           PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
           KeyFactory kf = KeyFactory.getInstance(algorithm);
@@ -311,8 +308,8 @@ fos.close();
           pkcs8.decode(keyBytes);
           byte[] b=pkcs8.encode();
 
-          BASE64Encoder b64=new BASE64Encoder();
-          String  encoded = b64.encodeBuffer(b);
+          Base64.Encoder mimeEncoder = java.util.Base64.getMimeEncoder();
+          String encoded = mimeEncoder.encodeToString(b);
 
           encoded= "-----BEGIN PRIVATE KEY-----\r\n" + encoded + "-----END PRIVATE KEY-----";
 
@@ -341,8 +338,8 @@ fos.close();
 
 
           byte[] keyBytes = key.getEncoded();
-          BASE64Encoder b64=new BASE64Encoder();
-          String  encoded = b64.encodeBuffer(keyBytes);
+          Base64.Encoder mimeEncoder = java.util.Base64.getMimeEncoder();
+          String encoded = mimeEncoder.encodeToString(keyBytes);
 
           encoded= "-----BEGIN PUBLIC KEY-----\r\n" + encoded + "-----END PUBLIC KEY-----";
 
@@ -379,8 +376,8 @@ fos.close();
           publicKeyPEM = publicKeyPEM.replace("-----END PUBLIC KEY-----", "");
 
 
-          BASE64Decoder b64=new BASE64Decoder();
-          byte[] decoded = b64.decodeBuffer(publicKeyPEM);
+          Base64.Decoder mimeDecoder = java.util.Base64.getMimeDecoder();
+          byte[] decoded = mimeDecoder.decode(publicKeyPEM);
 
           X509EncodedKeySpec spec =
                 new X509EncodedKeySpec(decoded);
@@ -400,8 +397,8 @@ fos.close();
         System.out.println("Format:"+gcsr.getPrivateKey().getFormat().toString());
         System.out.println("To String :"+gcsr.getPrivateKey().toString());
         System.out.println("GetEncoded :"+gcsr.getPrivateKey().getEncoded().toString());
-        BASE64Encoder encoder= new BASE64Encoder();
-        String s=encoder.encodeBuffer(gcsr.getPrivateKey().getEncoded());
+        Base64.Encoder mimeEncoder = java.util.Base64.getMimeEncoder();
+        String s = mimeEncoder.encodeToString(gcsr.getPrivateKey().getEncoded());
         System.out.println("Base64:"+s+"\n");
 
         String csr = gcsr.getCSR( "desphilboy@yahoo.com","baxshi az xodam", "Xodam","PointCook","VIC" ,"AU");
@@ -412,8 +409,8 @@ fos.close();
         System.out.print(p);
         p=gcsr.SavePemPublicKey("c:\\testdir\\java_public.pem");
         privateKey= gcsr.getPemPrivateKey("c:\\testdir\\java_private.pem", "RSA");
-        BASE64Encoder encoder1= new BASE64Encoder();
-        String s1=encoder1.encodeBuffer(gcsr.getPrivateKey().getEncoded());
+        Base64.Encoder mimeEncoder1 = java.util.Base64.getMimeEncoder();
+        String s1 = mimeEncoder1.encodeToString(gcsr.getPrivateKey().getEncoded());
         System.out.println("Private Key in Base64:"+s1+"\n");
         System.out.print(p);
 
