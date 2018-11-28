@@ -124,7 +124,7 @@ public class GenEnveloped {
 
         NodeList nodes = doc.getElementsByTagName("Signature");
         for (int i = 0; i < nodes.getLength(); i++) {
-          Element signaturinfonode = (Element)nodes.item(i);
+          Node signaturinfonode = nodes.item(i);
           signaturinfonode.getParentNode().removeChild(signaturinfonode);
         }
 
