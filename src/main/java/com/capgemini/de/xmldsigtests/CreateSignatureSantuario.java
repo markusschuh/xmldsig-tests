@@ -63,7 +63,7 @@ public class CreateSignatureSantuario {
 
         //All the parameters for the keystore
         String keystoreType     = "JKS";
-        String keystoreFile     = "build/envelope.keystore";
+        String keystoreFile     = "src/test/resources/envelope.keystore";
         String keystorePass     = "my-password";
         String privateKeyAlias  = "envelope";
         String privateKeyPass   = "my-password";
