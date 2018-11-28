@@ -19,43 +19,28 @@
 
 package com.capgemini.de.xmldsigtests;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+
+import java.security.KeyPair;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+
+import javax.xml.parsers.DocumentBuilder;
+
 import org.apache.xml.security.algorithms.MessageDigestAlgorithm;
 import org.apache.xml.security.algorithms.SignatureAlgorithm;
 import org.apache.xml.security.c14n.Canonicalizer;
-import org.apache.xml.security.keys.KeyInfo;
-import org.apache.xml.security.signature.ObjectContainer;
-import org.apache.xml.security.signature.SignedInfo;
 import org.apache.xml.security.signature.XMLSignature;
-import org.apache.xml.security.test.dom.DSNamespaceContext;
 import org.apache.xml.security.transforms.Transforms;
-import org.apache.xml.security.transforms.params.XPath2FilterContainer;
-import org.apache.xml.security.transforms.params.XPathContainer;
 import org.apache.xml.security.utils.Constants;
 import org.apache.xml.security.utils.ElementProxy;
 import org.apache.xml.security.utils.XMLUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import java.security.Key;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.cert.X509Certificate;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class CreateSignatureSantuario {
