@@ -38,6 +38,8 @@ N+lhE7x6wrvM49/lcMWoopMJcqq07MyGYNbC6Q==</Modulus>
  * </code></pre>
  */
 
+package com.capgemini.de.xmldsigtests;
+
 import javax.xml.crypto.dsig.CanonicalizationMethod;
 import javax.xml.crypto.dsig.DigestMethod;
 import javax.xml.crypto.dsig.Reference;

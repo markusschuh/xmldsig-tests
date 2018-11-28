@@ -17,6 +17,8 @@
  * under the License.
  */
 
+package com.capgemini.de.xmldsigtests;
+
 import org.apache.xml.security.algorithms.MessageDigestAlgorithm;
 import org.apache.xml.security.algorithms.SignatureAlgorithm;
 import org.apache.xml.security.c14n.Canonicalizer;
