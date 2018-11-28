@@ -1,41 +1,8 @@
 /**
- * This is a simple example of generating an Enveloped XML
- * Signature using the JSR 105 API. The resulting signature will look
- * like (key and signature values will be different):
+ * This is an example of generating an Enveloped XML Signature using the JSR 105 API.
+ * Source code originates from the JSR 105 tutorial
+ * https://docs.oracle.com/javase/9/security/java-xml-digital-signature-api-overview-and-tutorial.html
  *
- * <pre><code>
- *<Envelope xmlns="urn:envelope">
- * <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
- *   <SignedInfo>
- *     <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
- *     <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
- *     <Reference URI="">
- *       <Transforms>
- *         <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
- *          <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
- *       </Transforms>
- *       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
- *       <DigestValue>K8M/lPbKnuMDsO0Uzuj75lQtzQI=<DigestValue>
- *     </Reference>
- *   </SignedInfo>
- *   <SignatureValue>
- *     DpEylhQoiUKBoKWmYfajXO7LZxiDYgVtUtCNyTgwZgoChzorA2nhkQ==
- *   </SignatureValue>
- *   <KeyInfo>
- *     <KeyValue>
- *       <RSAKeyValue>
- *        <Modulus>ygPSo3j0GR6U4obxWT82fBsIgZevUDlsS37oDvaxRY3dn5lqvgCQw8IUP2BcUdV9j6bglymBfkR9
-72FjgMHdi+mNxQaP2emOxNRb+HiiToLCPbjZWiRrgVOZedlDrAXIJeBFaPRA0ZaeReNJk3h2qDEZ
-3JBcNa2hDVr6i3VJc8NPVCM9yn6tVPxRISSZRYORIdul7uJB20aAeQG8pWwFtpTv2dxjxgKc7XpY
-QCh+fb/or8ovMCOU6QHJ0WeeYNNvN7oPOpzr5N7aEK6/oiKd1cqTs4onArd0eEvG+Z0LfeUhE+BO
-N+lhE7x6wrvM49/lcMWoopMJcqq07MyGYNbC6Q==</Modulus>
- *         <Exponent>AQAB</Exponent>
- *       </RSAKeyValue>
- *     </KeyValue>
- *   </KeyInfo>
- * </Signature>
- *</Envelope>
- * </code></pre>
  */
 
 package com.capgemini.de.xmldsigtests;
