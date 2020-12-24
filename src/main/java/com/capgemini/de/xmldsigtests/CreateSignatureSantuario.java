@@ -28,7 +28,7 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-import javax.xml.parsers.DocumentBuilder;
+
 
 import org.apache.xml.security.algorithms.MessageDigestAlgorithm;
 import org.apache.xml.security.algorithms.SignatureAlgorithm;
@@ -83,8 +83,7 @@ public class CreateSignatureSantuario {
         KeyPair kp = new KeyPair(publicKey, privateKey);
 
         // Instantiate the document to be signed
-        DocumentBuilder db = XMLUtils.createDocumentBuilder(false);
-        Document doc = db.parse(new FileInputStream(args[0]));
+        Document doc = XMLUtils.read(new FileInputStream(args[0]));
 
         Element root = doc.getDocumentElement();
 
